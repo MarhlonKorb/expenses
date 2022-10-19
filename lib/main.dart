@@ -13,7 +13,24 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    return MaterialApp(
+      home: MyHomePage(),
+      theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+              .copyWith(secondary: Colors.amber),
+          fontFamily: 'QuickSand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+              headline1: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold)),
+          appBarTheme: AppBarTheme(
+              textTheme: ThemeData.light().textTheme.copyWith(
+                  headline1: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold)))),
+    );
   }
 }
 
@@ -25,12 +42,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-final _transactions = [
+  final _transactions = [
     Transaction(id: 'id', title: 'Compras', value: 12.75, date: DateTime.now())
   ];
-
-
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -40,7 +54,6 @@ final _transactions = [
         date: DateTime.now());
 
     setState(() {
-
       _transactions.add(newTransaction);
     });
 
