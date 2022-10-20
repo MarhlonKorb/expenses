@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:math';
+import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 
@@ -35,16 +36,31 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(id: 'id', title: 'Compras', value: 12.75, date: DateTime.now())
+  final List<Transaction> _transactions = [
+    Transaction(
+        id: Random().nextDouble().toString(),
+        title: 'Novo Tênis de corrida',
+        value: 310.76,
+        date: DateTime.now().subtract(Duration(days: 3))),
+    Transaction(
+        id: Random().nextDouble().toString(),
+        title: 'Camisa',
+        value: 85.70,
+        date: DateTime.now().subtract(Duration(days: 4))),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((transaction) {
+      return transaction.date.isAfter(
+        DateTime.now().subtract(Duration(days: 7)),
+      );
+    }).toList();
+  }
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -85,13 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-            Container(
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: Text('Gráfico'),
-              ),
-            ),
+            Chart(_recentTransactions),
+            
             TransactionList(transaction: _transactions),
           ])),
       floatingActionButton: FloatingActionButton(
