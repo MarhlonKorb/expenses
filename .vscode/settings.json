@@ -1,0 +1,9 @@
+{
+    "files.autoGuessEncoding": false,
+    "debug.openDebug": "neverOpen",
+    "launch": {
+    
+        "configurations": [],
+        "compounds": []
+    }
+}

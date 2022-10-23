@@ -23,19 +23,23 @@ class ExpensesApp extends StatelessWidget {
           textTheme: ThemeData.light().textTheme.copyWith(
               headline1: TextStyle(
                   fontFamily: 'OpenSans',
-                  fontSize: 15,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold)),
           appBarTheme: AppBarTheme(
-              textTheme: ThemeData.light().textTheme.copyWith(
+              toolbarTextStyle: ThemeData.light().textTheme.copyWith(
                   headline1: TextStyle(
                       fontFamily: 'OpenSans',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)))),
-    );
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold))
+                      .headline1,
+                      ),
+    ));
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -102,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
             Chart(_recentTransactions),
-            
             TransactionList(transaction: _transactions),
           ])),
       floatingActionButton: FloatingActionButton(

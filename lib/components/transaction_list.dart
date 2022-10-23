@@ -11,7 +11,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 300,
       // Método builder redimensiona os itens na tela de forma que possíbilite o scroll da tela
       child: transaction.isEmpty
@@ -34,38 +34,25 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final tr = transaction[index];
                 return Card(
-                    child: Row(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                              color: Theme.of(context).colorScheme.primary,
-                              width: 2)),
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        toMoney(tr.value),
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: Theme.of(context).colorScheme.primary),
+                  elevation: 5,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.purple,
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(child: Text(moneyToStringFormat(tr.value))),
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(tr.title,
-                            style: Theme.of(context).textTheme.headline1),
-                        Text(
-                          toDateFormat(tr.date),
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    )
-                  ],
-                ));
+                    title: Text(
+                      tr.title,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    subtitle: Text(dateFormatToString(tr.date)),
+                  ),
+                );
               },
             ),
     );
