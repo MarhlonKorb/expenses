@@ -1,16 +1,33 @@
-# expenses
+<h1>App de Despesas pessoais</h1>
+<div>
+<p>Aplicativo de despesas pessoais, onde o usuário pode cadastrar suas despesas semanais e exclui-las. Despesas cadastradas na semana ficam disponíveis em um gráfico que mostra o nível de gastos por dia sobre o percentual total de gastos da semana.</p>
+</div>
+<div><h2>Tecnologias utilizadas</h2>
+<a href="https://flutter.dev/">
+         <img height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/dart/dart-plain.svg"></a>
+     <a <a href="https://flutter.dev/">
+         <img height="30" width="40"  src="https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-plain.svg"></a>
+</div>
 
-A new Flutter project.
+<h2><br>Objetivos do projeto</h2>
 
-## Getting Started
+- Entender o relacionamento de herança entre widgets;
+- Aplicar conceitos de design de interface nos componentes;
+- Divisão de componentes(widgets) de acordo com suas responsabilidades;
+- Aprender a criar modal de input de dados e armazenar dados em variáveis de controle;
 
-This project is a starting point for a Flutter application.
+![image-20221023215500574](https://github.com/MarhlonKorb/expenses/blob/master/assets/images/image.png)
 
-A few resources to get you started if this is your first Flutter project:
+![image-20221023215500574](https://github.com/MarhlonKorb/expenses/blob/master/assets/images/no-bills.png)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Git clone:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+https://github.com/MarhlonKorb/expenses.git
+```
+
+<h2><br>Dúvidas ou sugestões, entre em contato:</h2>
+
+<a href="https://www.linkedin.com/in/marhlon-korb-de-oliveira-70282a78/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> <a href = "mailto:marhlonkorb@hotmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+
+
