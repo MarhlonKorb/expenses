@@ -101,7 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      title: Text('Despesas Pessoais'),
+      title: Text('Despesas Pessoais', style: TextStyle(
+       // Forma de controlar a responsividade de textos: fontSize: 19 * MediaQuery.of(context).textScaleFactor
+      ),),
       actions: <Widget>[
         IconButton(
             onPressed: () => _openTransactionFormModal(context),
@@ -118,10 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
             Container(
-                height: availableHeight * 0.3,
+                height: availableHeight * 0.30,
                 child: Chart(_recentTransactions)),
             Container(
-                height: availableHeight * 0.7,
+                height: availableHeight * 0.70,
                 child: TransactionList(_transactions, _removeTransaction)),
           ])),
       floatingActionButton: FloatingActionButton(
