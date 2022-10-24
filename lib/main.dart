@@ -66,12 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now());
+        date: date);
 
     setState(() {
       _transactions.add(newTransaction);
@@ -79,6 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
 // Fecha o modal do formulário
     Navigator.of(context).pop();
+  }
+
+  _removeTransaction(String id){
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -106,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(transaction: _transactions),
+            TransactionList(_transactions, _removeTransaction),
           ])),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

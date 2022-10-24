@@ -3,7 +3,7 @@ import '../utils.dart';
 
 /// Formulário de cadastro de transação e regras de submit do form
 class TransactionForm extends StatefulWidget {
-  final void Function(String, double) onSubmit;
+  final void Function(String, double, DateTime) onSubmit;
 
   const TransactionForm(this.onSubmit, {super.key});
 
@@ -22,7 +22,7 @@ class _TransactionFormState extends State<TransactionForm> {
     if (title.isEmpty || value <= 0) {
       return;
     }
-    widget.onSubmit(title, value);
+    widget.onSubmit(title, value, _selectedDate);
   }
 
 // Método que abre o modal de calendário e armazena a data selecionada
@@ -66,7 +66,7 @@ class _TransactionFormState extends State<TransactionForm> {
                   const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(labelText: 'Valor (R\$)'),
             ),
-            Container(
+            SizedBox(
               height: 70,
               child: Row(
                 children: [

@@ -5,16 +5,17 @@ import '../utils.dart';
 
 /// Classe responsável pela listagem de transações cadastradas
 class TransactionList extends StatelessWidget {
-  final List<Transaction> transaction;
+  final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
-  const TransactionList({super.key, required this.transaction});
+  const TransactionList(this.transactions, this.onRemove);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 430,
       // Método builder redimensiona os itens na tela de forma que possíbilite o scroll da tela
-      child: transaction.isEmpty
+      child: transactions.isEmpty
           ? Column(
               children: [
                 const SizedBox(height: 20),
@@ -30,9 +31,9 @@ class TransactionList extends StatelessWidget {
               ],
             )
           : ListView.builder(
-              itemCount: transaction.length,
+              itemCount: transactions.length,
               itemBuilder: (BuildContext context, int index) {
-                final tr = transaction[index];
+                final tr = transactions[index];
                 return Card(
                   elevation: 5,
                   margin:
@@ -50,7 +51,11 @@ class TransactionList extends StatelessWidget {
                       tr.title,
                       style: Theme.of(context).textTheme.headline1,
                     ),
-                    subtitle: Text(dateFormatToString(tr.date)),
+                    subtitle: Text(dateFormatDefaltToString(tr.date)),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete), onPressed: () => onRemove(tr.id),
+                      color: Theme.of(context).errorColor,
+                    ),
                   ),
                 );
               },

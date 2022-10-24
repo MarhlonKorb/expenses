@@ -6,7 +6,7 @@ String moneyToStringFormat(double value){
 }
 
 /// Formatador de valor de data para tipo String / 20 Oct 2022
-String dateFormatToString(DateTime data){
+String dateToStringFormat(DateTime data){
   return DateFormat('dd MMM y').format(data).toString();
 }
 
