@@ -18,7 +18,7 @@ class ChartBar extends StatelessWidget {
         // Widget que adapta o valor do campo para caber dentro das colunas
         SizedBox(
           height: 20,
-          child: FittedBox(child: Text('R\$$value'))),
+          child: FittedBox(child: Text('$value'))),
         const SizedBox(height: 5),
         SizedBox(
           height: 80,

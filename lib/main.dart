@@ -15,8 +15,8 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
-      theme: ThemeData(
+        home: MyHomePage(),
+        theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
               .copyWith(secondary: Colors.amber),
           fontFamily: 'QuickSand',
@@ -26,14 +26,16 @@ class ExpensesApp extends StatelessWidget {
                   fontSize: 17,
                   fontWeight: FontWeight.bold)),
           appBarTheme: AppBarTheme(
-              toolbarTextStyle: ThemeData.light().textTheme.copyWith(
-                  headline1: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold))
-                      .headline1,
-                      ),
-    ));
+            toolbarTextStyle: ThemeData.light()
+                .textTheme
+                .copyWith(
+                    headline1: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold))
+                .headline1,
+          ),
+        ));
   }
 }
 
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  _removeTransaction(String id){
+  _removeTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
     });
@@ -98,21 +100,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Despesas Pessoais'),
+      actions: <Widget>[
+        IconButton(
+            onPressed: () => _openTransactionFormModal(context),
+            icon: Icon(Icons.add)),
+      ],
+    );
+    // Variável utilizada para controlar o scroll da tela em modo paisagem/retrato gerar desproporcionalidade na tela
+    final availableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Despesas Pessoais'),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () => _openTransactionFormModal(context),
-              icon: Icon(Icons.add)),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_transactions, _removeTransaction),
+            Container(
+                height: availableHeight * 0.3,
+                child: Chart(_recentTransactions)),
+            Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_transactions, _removeTransaction)),
           ])),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
