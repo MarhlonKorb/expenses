@@ -47,6 +47,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _showChart = false;
+
   final List<Transaction> _transactions = [
     Transaction(
         id: Random().nextDouble().toString(),
@@ -100,18 +102,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    bool isLandScape =
+        mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
-      title: Text('Despesas Pessoais', style: TextStyle(
-       // Forma de controlar a responsividade de textos: fontSize: 19 * MediaQuery.of(context).textScaleFactor
-      ),),
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(
+            // Forma de controlar a responsividade de textos: fontSize: 19 * MediaQuery.of(context).textScaleFactor
+            ),
+      ),
       actions: <Widget>[
+        if(isLandScape)
+        IconButton(
+          icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+          onPressed: () {
+            setState(() {
+              _showChart = !_showChart;
+            });
+          },
+        ),
         IconButton(
             onPressed: () => _openTransactionFormModal(context),
             icon: Icon(Icons.add)),
       ],
     );
     // Variável utilizada para controlar o scroll da tela em modo paisagem/retrato gerar desproporcionalidade na tela
-    final availableHeight = MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+    final availableHeight = mediaQuery.size.height -
+        appBar.preferredSize.height -
+        mediaQuery.padding.top;
 
     return Scaffold(
       appBar: appBar,
@@ -119,12 +138,28 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-            Container(
-                height: availableHeight * 0.30,
-                child: Chart(_recentTransactions)),
-            Container(
-                height: availableHeight * 0.70,
-                child: TransactionList(_transactions, _removeTransaction)),
+            if (isLandScape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Exibir gráfico'),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (value) {
+                        setState(() {
+                          _showChart = value;
+                        });
+                      }),
+                ],
+              ),
+            if (_showChart || !isLandScape)
+              Container(
+                  height: availableHeight * (isLandScape ? 0.8 : 0.3),
+                  child: Chart(_recentTransactions)),
+            if (!_showChart || !isLandScape)
+              Container(
+                  height: availableHeight * (isLandScape ? 1 : 0.7),
+                  child: TransactionList(_transactions, _removeTransaction)),
           ])),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
