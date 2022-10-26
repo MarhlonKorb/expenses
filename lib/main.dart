@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
+import 'dart:io';
 import 'dart:math';
 import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'components/transaction_list.dart';
@@ -103,8 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    bool isLandScape =
-        mediaQuery.orientation == Orientation.landscape;
+    bool isLandScape = mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
       title: Text(
         'Despesas Pessoais',
@@ -113,15 +114,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
       ),
       actions: <Widget>[
-        if(isLandScape)
-        IconButton(
-          icon: Icon(_showChart ? Icons.list : Icons.show_chart),
-          onPressed: () {
-            setState(() {
-              _showChart = !_showChart;
-            });
-          },
-        ),
+        if (isLandScape)
+          IconButton(
+            icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+            onPressed: () {
+              setState(() {
+                _showChart = !_showChart;
+              });
+            },
+          ),
         IconButton(
             onPressed: () => _openTransactionFormModal(context),
             icon: Icon(Icons.add)),
@@ -132,40 +133,46 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         mediaQuery.padding.top;
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-            if (isLandScape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Exibir gráfico'),
-                  Switch(
-                      value: _showChart,
-                      onChanged: (value) {
-                        setState(() {
-                          _showChart = value;
-                        });
-                      }),
-                ],
-              ),
-            if (_showChart || !isLandScape)
-              Container(
-                  height: availableHeight * (isLandScape ? 0.8 : 0.3),
-                  child: Chart(_recentTransactions)),
-            if (!_showChart || !isLandScape)
-              Container(
-                  height: availableHeight * (isLandScape ? 1 : 0.7),
-                  child: TransactionList(_transactions, _removeTransaction)),
-          ])),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _openTransactionFormModal(context),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+    final bodyPage = SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+          if (isLandScape)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Exibir gráfico'),
+                Switch(
+                    value: _showChart,
+                    onChanged: (value) {
+                      setState(() {
+                        _showChart = value;
+                      });
+                    }),
+              ],
+            ),
+          if (_showChart || !isLandScape)
+            Container(
+                height: availableHeight * (isLandScape ? 0.8 : 0.3),
+                child: Chart(_recentTransactions)),
+          if (!_showChart || !isLandScape)
+            Container(
+                height: availableHeight * (isLandScape ? 1 : 0.7),
+                child: TransactionList(_transactions, _removeTransaction)),
+        ]));
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(child: bodyPage,
+        )
+        : Scaffold(
+            appBar: appBar,
+            body: bodyPage,
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => _openTransactionFormModal(context),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
   }
 }
