@@ -137,26 +137,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-          if (isLandScape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Exibir gráfico'),
-                Switch(
-                    value: _showChart,
-                    onChanged: (value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    }),
-              ],
-            ),
+          // if (isLandScape)
+          //   Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Text('Exibir gráfico'),
+          //       Switch(
+          //           value: _showChart,
+          //           onChanged: (value) {
+          //             setState(() {
+          //               _showChart = value;
+          //             });
+          //           }),
+          //     ],
+          //   ),
           if (_showChart || !isLandScape)
-            Container(
+            SizedBox(
                 height: availableHeight * (isLandScape ? 0.8 : 0.3),
                 child: Chart(_recentTransactions)),
           if (!_showChart || !isLandScape)
-            Container(
+            SizedBox(
                 height: availableHeight * (isLandScape ? 1 : 0.7),
                 child: TransactionList(_transactions, _removeTransaction)),
         ]));
